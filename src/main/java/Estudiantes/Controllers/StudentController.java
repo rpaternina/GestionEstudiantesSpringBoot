@@ -18,11 +18,20 @@ public class StudentController {
             new Student(3, "Keiry Diaz", "keiry@gmail.com", 24, "Noveno")
     ));
 
+    /**
+     * Metodo para obtener todos los estudiantes
+     * @return
+     */
     @GetMapping
     public List<Student> getStudents(){
         return estudiantes;
     }
 
+    /**
+     * Metodo para buscar un estudiante por email
+     * @param email
+     * @return
+     */
     @GetMapping("/{email}")
     public Student getStuden(@PathVariable String email){
         for(Student StudendByEmail : estudiantes){
@@ -33,12 +42,30 @@ public class StudentController {
         return null;
     }
 
+    /**
+     * Metodo para agregar un estudiante
+     * @param estudiante
+     * @return
+     */
     @PostMapping
     public Student postStuden(@RequestBody Student estudiante){
     estudiantes.add(estudiante);
     return estudiante;
     }
 
+    @PutMapping
+    public Student putStuden(@RequestBody Student estudiante){
+        for(Student updateStudent : estudiantes){
+            if(updateStudent.getId() == estudiante.getId()){
+                updateStudent.setName(estudiante.getName());
+                updateStudent.setEmail(estudiante.getEmail());
+                updateStudent.setAge(estudiante.getAge());
+                updateStudent.setCourse(estudiante.getCourse());
+                return updateStudent;
+            }
+        }
+        return null;
+    }
 
 
 }
