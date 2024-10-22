@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 
+    
     List<Student> estudiantes = new ArrayList<>(Arrays.asList(
             new Student(1, "Robert Paternina", "paterninayolir@gmail.com", 24, "Noveno"),
             new Student(2, "Samuel Paternina", "paterninaSamuel@gmail.com", 24, "Noveno"),
@@ -94,6 +95,16 @@ public class StudentController {
         }
         return null;
     }
-    
+
+    @DeleteMapping("/{id}")
+    public Student deletStuden(@PathVariable int id){
+        for(Student deletStudent : estudiantes){
+            if(deletStudent.getId() == id){
+                estudiantes.remove(deletStudent);
+                return deletStudent;
+            }
+        }
+        return null;
+    }
 
 }
